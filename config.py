@@ -8,7 +8,7 @@ class Config:
 
     PATH_TO_WRITE_SUSPENDED_ACCOUNTS = "data/suspended_accounts.txt"
     PATH_TO_WRITE_LOCKED_ACCOUNTS = "data/locked_accounts.txt"
-    PATH_TO_WRITE_INVALID_TOKENS = "data/invalid_tokens.txt"
+    PATH_TO_WRITE_INVALID_TOKENS = "data/c.txt"
 
     THREADS = 2
     MIN_RETRIES = 1

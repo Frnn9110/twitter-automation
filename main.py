@@ -27,12 +27,12 @@ def get_module():
 def main():
     print("Be careful with this tool, it can get your account banned!")
 
-    executor = Executor()
-    module = get_module()
+    executor = Executor([2])
+    # module = get_module()
 
-    if module != "exit":
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(executor.run_module(module))
+    # if module != "exit":
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(executor.run_module(TwitterModulesNames.TWEET))
 
     print("Subscribe to me here - https://t.me/easypeoff")
     print("You can thank me here - 0x00000D01B969922762a63F3cfD8ec9545DE4d513")

@@ -56,9 +56,9 @@ MODULES_SETTINGS = {
         #
         # Follow accounts between each other
         # TwitterFollowModes.FOLLOW_ACCOUNTS_BETWEEN_EACH_OTHER
-        "mode": TwitterFollowModes.FOLLOW_ACCOUNTS_BETWEEN_EACH_OTHER,
+        "mode": TwitterFollowModes.FOLLOW_ONE_USER,
         # For FOLLOW_ONE_USER mode
-        "username": "easypeoff",
+        "username": "SPIN",
         # For FOLLOW_USERS_FROM_FILE mode
         "users_file": "data/users_to_follow.txt",
         # For FOLLOW_USERS_FROM_FILE and FOLLOW_ACCOUNTS_BETWEEN_EACH_OTHER modes

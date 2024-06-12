@@ -26,16 +26,19 @@ class TwitterTweet(TwitterModule):
     async def run(self):
         func = self.module_settings["mode"]
         async with self.account.get_client_session() as client:
-            await self._run_module(func=self.modes[func], client=client)
+            result = await self._run_module(func=self.modes[func], client=client)
+        return result
 
     async def _tweet(self, client: Client, text: str):
         logger.info(f"{self.account} Tweeting text={text}")
-        await client.tweet(text=text)
+        tweet_id = await client.tweet(text=text)
         logger.success(f"{self.account} Tweeted text={text}")
+        return tweet_id
 
     async def _tweet_from_input(self, client: Client):
         text = await ainput(f"{self.account} Enter tweet text: ")
-        await self._tweet(client=client, text=text)
+        tweet_id = await self._tweet(client=client, text=text)
+        return tweet_id
 
     async def _tweet_from_file(self, client: Client):
         if self.module_settings["all_tweets"]:

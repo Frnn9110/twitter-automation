@@ -21,11 +21,12 @@ class TwitterModule(ABC):
 
     async def _run_module(self, func: Callable[..., Awaitable], *args, **kwargs):
         retry = 0
+        result = ''
         max_retries = random.randint(config.MIN_RETRIES, config.MAX_RETRIES)
         while retry < max_retries + 1:
             try:
                 try:
-                    await func(*args, **kwargs)
+                    result = await func(*args, **kwargs)
                     break
                 except Unauthorized as e:
                     logger.error(f"{self} Unauthorized")
@@ -55,6 +56,7 @@ class TwitterModule(ABC):
                 sleep_from=config.MIN_RETRY_DELAY,
                 sleep_to=config.MIN_RETRY_DELAY,
             )
+        return result
 
     @property
     @staticmethod

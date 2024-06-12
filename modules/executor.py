@@ -5,6 +5,7 @@ import traceback
 
 from loguru import logger
 
+from data.Account import Twitter
 from config import config
 from modules.twitter_account import TwitterAccount
 from module_settings import TwitterModulesNames, MODULES_SETTINGS, TwitterTweetModes
@@ -17,10 +18,11 @@ from utils.errors import InvalidToken, AccountLocked, AccountSuspended
 from utils.sleep import sleep
 from utils.file_system import save_to_file, load_file
 
+twitter = Twitter()
 
 class Executor:
-    def __init__(self):
-        self.groups, self.accounts = self._generate_accounts()
+    def __init__(self, ids):
+        self.groups, self.accounts = self._generate_accounts(ids)
 
         self.twitter_modules = {
             TwitterModulesNames.FOLLOW: TwitterFollow,
@@ -76,14 +78,21 @@ class Executor:
             else:
                 logger.success(f"{account} Module {module} finished")
 
-    def _generate_accounts(self) -> tuple[list, list]:
-        data = list(zip(config.ACCOUNTS, config.PROXIES, config.USER_AGENTS))
+    def _generate_accounts(self, ids: list) -> tuple[list, list]:
+        cookie_list = twitter.twitter_auth_v2_cookies
+        del(cookie_list[0])
+        data = list(zip(cookie_list, config.PROXIES, config.USER_AGENTS))
         if config.RANDOMIZE_ACCOUNTS:
             random.shuffle(data)
 
         accounts = []
 
-        for id, (auth_token, proxy, user_agent) in enumerate(data, start=1):
+        for id, (cookies, proxy, user_agent) in enumerate(data, start=1):
+            if id not in ids:
+                continue
+            for cookie in cookies:
+                if cookie['name'] == 'auth_token':
+                    auth_token = cookie['value']
             try:
                 account = TwitterAccount(
                     id=id, auth_token=auth_token, user_agent=user_agent, proxy=proxy
