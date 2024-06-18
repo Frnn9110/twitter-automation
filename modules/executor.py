@@ -135,7 +135,7 @@ class Executor:
                 save_to_file,
                 file_name=MODULES_SETTINGS[TwitterModulesNames.TWEET]["tweets_file"],
                 data=load_file(
-                    file_name=MODULES_SETTINGS[TwitterModulesNames.TWEET][
+                    file_name=MODULES_SETTINGS[TwitterModulesNames.FOLLOW][
                         "tweets_file"
                     ],
                     file_format="json",

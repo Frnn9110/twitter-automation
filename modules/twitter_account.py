@@ -1,6 +1,10 @@
 from contextlib import asynccontextmanager
 import re
+from socket import socket
+
 import aiohttp
+import requests
+import socks
 
 from aiohttp import TCPConnector
 from aiohttp_proxy import ProxyConnector
@@ -42,6 +46,9 @@ class TwitterAccount(Account):
         if self.proxy:
             if self.proxy.startswith("https://"):
                 self.proxy = self.proxy.replace("https://", "http://")
+
+            if self.proxy.startswith("127.0.0.1"):
+                return ProxyConnector(host='127.0.0.1', port=self.proxy.split(':')[1])
 
             return ProxyConnector.from_url(
                 url=Proxy.from_str(proxy=self.proxy).as_url, verify_ssl=False

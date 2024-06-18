@@ -18,8 +18,8 @@ class Config:
     MIN_RETRY_DELAY = 30 # in seconds
     MAX_RETRY_DELAY = 60 # in seconds
 
-    MIN_SLEEP_BEFORE_NEXT_ACCOUNT = 3600 # in seconds
-    MAX_SLEEP_BEFORE_NEXT_ACCOUNT = 7200 # in seconds
+    MIN_SLEEP_BEFORE_NEXT_ACCOUNT = 1 # in seconds
+    MAX_SLEEP_BEFORE_NEXT_ACCOUNT = 5 # in seconds
 
     MIN_SLEEP_BEFORE_NEXT_REQUEST = 1 # in seconds
     MAX_SLEEP_BEFORE_NEXT_REQUEST = 1800 # in seconds
